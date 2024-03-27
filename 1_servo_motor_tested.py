@@ -1,12 +1,12 @@
 #WORKING TESTED ON MARCH 20
-# Signal pin No-32 (GPIO 12 (PWM0))
+# Signal pin No-7 (GPIO 4 )
 # Power pin No-2 (5V power)
 # GND pin No-6 (GROUND)
 import RPi.GPIO as GPIO
 import time
 
 # Set up GPIO
-servo_pin = 32  # Use any GPIO pin
+servo_pin = 7  # Use any GPIO pin
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 GPIO.setup(servo_pin, GPIO.OUT)
