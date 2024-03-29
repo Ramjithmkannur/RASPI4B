@@ -1,10 +1,7 @@
 import time
 import adafruit_dht
 import board
-
-gege
-
-
+dht_device = adafruit_dht.DHT11(board.D4)
 while True:
     try:
         temperature_c = dht_device.temperature

@@ -1,34 +1,33 @@
-import RPi.GPIO as GPIO
 import time
+import RPi.GPIO as GPIO
 
-# Set up GPIO pins
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+# Set up the GPIO pins
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11, GPIO.IN)  # Gas sensor is connected to pin 17
 
-# MQ-7 sensor
-mq7_gas_pin = 14  # Change this to the appropriate pin number
-GPIO.setup(mq7_gas_pin, GPIO.IN)
+# Initialize variables
+gas_level = 0
+smoke_level = 0
 
-# LED indicator
-led_pin = 18  # Change this to the appropriate pin number
-GPIO.setup(led_pin, GPIO.OUT)
+# Function to detect gas leaks
+def detect_gas():
+    global gas_level
+    gas_level = GPIO.input(11)
+    if gas_level == 0:
+        print("Gas leak detected!")
+    else:
+        print("No gas leak detected.")
 
-try:
-    while True:
-        # Read MQ-7 sensor value
-        mq7_gas_state = GPIO.input(mq7_gas_pin)
+# Function to detect smoke
+def detect_smoke():
+    global smoke_level
+    # Add your smoke detection code here
 
-        # Check if MQ-7 sensor detects gas
-        if mq7_gas_state:
-            # Turn on LED indicator
-            GPIO.output(led_pin, GPIO.HIGH)
-        else:
-            # Turn off LED indicator
-            GPIO.output(led_pin, GPIO.LOW)
+# Main loop
+while True:
+    detect_gas()
+    detect_smoke()
+    time.sleep(1)
 
-        # Wait for a short period before checking again
-        time.sleep(0.5)
-
-except KeyboardInterrupt:
-    # Clean up GPIO pins
-    GPIO.cleanup()
+# Clean up the GPIO pins
+GPIO.cleanup()
